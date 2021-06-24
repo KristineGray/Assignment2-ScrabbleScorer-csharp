@@ -33,6 +33,7 @@ namespace Assignment2_ScrabbleScorer_csharp
                         transformed.Add(letter, pair.Key);
                 }
             }
+            transformed.Add(' ', 0);
             return transformed;
         }
 
@@ -55,7 +56,7 @@ namespace Assignment2_ScrabbleScorer_csharp
         {
             int score = 0;
             char[] vowels = new char[] { 'a', 'e', 'i', 'o', 'u' };
-            foreach (char letter in word.ToLower())
+            foreach (char letter in word)
             {
                 if (Array.IndexOf(vowels, letter) == -1) //Consonants
                 {
@@ -75,7 +76,7 @@ namespace Assignment2_ScrabbleScorer_csharp
         public static void ScrabbleScorer(string word)
         {
             int score = 0;
-            foreach (char letter in word.ToLower())
+            foreach (char letter in word)
             {
                 score += newPointStructure[letter];
             }
@@ -131,39 +132,59 @@ namespace Assignment2_ScrabbleScorer_csharp
 
 
         //Code your RunProgram method here
+        public static void RunProgram()
+        {
+            const string endPrompt = "stop";
+            int methodChoice = InitialPrompt();
+            Console.WriteLine($"\nEnter a word to score or enter \'{endPrompt}\' to end scoring:  ");
+            string wordChoice = Console.ReadLine();
+            bool validWord = IsWordValid(wordChoice);
+            while (!validWord)
+            {
+                Console.WriteLine("\nWords can only contain letters from A to Z");
+                Console.WriteLine($"Enter a word to score or enter \'{endPrompt}\' to end scoring:  ");
+                wordChoice = Console.ReadLine();
+                validWord = IsWordValid(wordChoice);
+            }
+            do
+            {
+                Console.Clear();
+                ScoringAlgorithms(methodChoice, wordChoice.ToLower());
+                Console.WriteLine($"\nEnter a word to score or enter \'{endPrompt}\' to end scoring");
+                wordChoice = Console.ReadLine();
+                validWord = IsWordValid(wordChoice);
+                while (!validWord)
+                {
+                    Console.WriteLine("\nWords can only contain letters from A to Z");
+                    Console.WriteLine($"Enter a word to score or enter \'{endPrompt}\' to end scoring:  ");
+                    wordChoice = Console.ReadLine();
+                    validWord = IsWordValid(wordChoice);
+                }
+            }
+            while (wordChoice.ToLower() != endPrompt && validWord);
+        }
 
 
-
-
+        public static bool IsWordValid(string word)
+        {
+            bool isValid = true;
+            foreach (char letter in word.ToLower())
+            {
+                if (!(letter >= 'a' && letter <= 'z') || letter == ' ')
+                {
+                    isValid = false;
+                }
+            }
+            if (string.IsNullOrEmpty(word))
+                isValid = false;
+            return isValid;
+        }
 
 
         static void Main(string[] args)
         {
             //Call your RunProgram method here
-
-            Console.WriteLine("TESTING");
-            string testOne = "CSharp";
-            string testTwo = "Scrabble";
-            string testThree = "Zox";
-
-            Console.WriteLine("\nTEST A");
-            ScoringAlgorithms(1, testOne);
-            ScoringAlgorithms(2, testOne);
-            ScoringAlgorithms(3, testOne);
-            ScoringAlgorithms(4, testOne);
-
-            Console.WriteLine("\nTEST B");
-            ScoringAlgorithms(1, testTwo);
-            ScoringAlgorithms(2, testTwo);
-            ScoringAlgorithms(3, testTwo);
-            ScoringAlgorithms(4, testTwo);
-
-            Console.WriteLine("\nTEST C");
-            ScoringAlgorithms(1, testThree);
-            ScoringAlgorithms(2, testThree);
-            ScoringAlgorithms(3, testThree);
-            ScoringAlgorithms(4, testThree);
-            Console.ReadKey();
+            RunProgram();
         }
     }
 }
