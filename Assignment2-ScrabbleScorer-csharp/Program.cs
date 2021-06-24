@@ -17,11 +17,24 @@ namespace Assignment2_ScrabbleScorer_csharp
             {10, "Q, Z" }
         };
 
-
+        //newPointStructure dictionary for use in methods
+        public static Dictionary<char, int> newPointStructure = Transform();
 
 
         //Code your Transform method here
-
+        static Dictionary<char, int> Transform()
+        {
+            Dictionary<char, int> transformed = new Dictionary<char, int>();
+            foreach (KeyValuePair<int, string> pair in oldPointStructure)
+            {
+                foreach (char letter in pair.Value.ToLower())
+                {
+                    if (letter >= 'a' && letter <= 'z')
+                        newPointStructure.Add(letter, pair.Key);
+                }
+            }
+            return transformed;
+        }
 
 
 
