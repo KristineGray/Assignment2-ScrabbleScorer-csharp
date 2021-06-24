@@ -30,7 +30,7 @@ namespace Assignment2_ScrabbleScorer_csharp
                 foreach (char letter in pair.Value.ToLower())
                 {
                     if (letter >= 'a' && letter <= 'z')
-                        newPointStructure.Add(letter, pair.Key);
+                        transformed.Add(letter, pair.Key);
                 }
             }
             return transformed;
@@ -43,19 +43,44 @@ namespace Assignment2_ScrabbleScorer_csharp
         //Code your Scoring Option methods here
 
         //SimpleScorer-----
-        public static void SimpleScorer()
+        public static void SimpleScorer(string word)
         {
-
+            int score = word.Length;
+            Console.WriteLine($"Your word \'{word}\' is worth {score} points.");
         }
 
 
         //BonusVowels-----
-
+        public static void BonusVowels(string word)
+        {
+            int score = 0;
+            char[] vowels = new char[] { 'a', 'e', 'i', 'o', 'u' };
+            foreach (char letter in word.ToLower())
+            {
+                if (Array.IndexOf(vowels, letter) == -1) //Consonants
+                {
+                    score++;
+                }
+                else //Vowels
+                {
+                    score+=3;
+                }
+            }
+            Console.WriteLine($"Your word \'{word}\' is worth {score} points.");
+        }
 
 
 
         //ScrabbleScorer-----
-
+        public static void ScrabbleScorer(string word)
+        {
+            int score = 0;
+            foreach (char letter in word.ToLower())
+            {
+                score += newPointStructure[letter];
+            }
+            Console.WriteLine($"Your word \'{word}\' is worth {score} points.");
+        }
 
 
 
@@ -101,11 +126,15 @@ namespace Assignment2_ScrabbleScorer_csharp
         {
             //Call your RunProgram method here
 
+            Console.WriteLine("TESTING");
+            string testOne = "CSharp";
+            string testTwo = "Scrabble";
+            string testThree = "Zox";
 
-
-
-
-
+            ScrabbleScorer(testOne);
+            ScrabbleScorer(testTwo);
+            ScrabbleScorer(testThree);
+            Console.ReadKey();
         }
     }
 }
