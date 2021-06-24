@@ -86,7 +86,22 @@ namespace Assignment2_ScrabbleScorer_csharp
 
 
         //Code your ScoringAlgorithms method here
-
+        public static void ScoringAlgorithms(int method, string word)
+        {
+            switch (method)
+            {
+                case 1:
+                default:
+                    ScrabbleScorer(word);
+                    break;
+                case 2:
+                    SimpleScorer(word);
+                    break;
+                case 3:
+                    BonusVowels(word);
+                    break;
+            }
+        }
 
 
 
@@ -131,9 +146,23 @@ namespace Assignment2_ScrabbleScorer_csharp
             string testTwo = "Scrabble";
             string testThree = "Zox";
 
-            ScrabbleScorer(testOne);
-            ScrabbleScorer(testTwo);
-            ScrabbleScorer(testThree);
+            Console.WriteLine("\nTEST A");
+            ScoringAlgorithms(1, testOne);
+            ScoringAlgorithms(2, testOne);
+            ScoringAlgorithms(3, testOne);
+            ScoringAlgorithms(4, testOne);
+
+            Console.WriteLine("\nTEST B");
+            ScoringAlgorithms(1, testTwo);
+            ScoringAlgorithms(2, testTwo);
+            ScoringAlgorithms(3, testTwo);
+            ScoringAlgorithms(4, testTwo);
+
+            Console.WriteLine("\nTEST C");
+            ScoringAlgorithms(1, testThree);
+            ScoringAlgorithms(2, testThree);
+            ScoringAlgorithms(3, testThree);
+            ScoringAlgorithms(4, testThree);
             Console.ReadKey();
         }
     }
