@@ -54,7 +54,24 @@ namespace Assignment2_ScrabbleScorer_csharp
 
 
         //Code your InitialPrompt method here
-
+        static int InitialPrompt()
+        {
+            Console.WriteLine("Welcome to the Scrabble Score Calculator!");
+            Console.WriteLine("\nWhich scoring algorithm would you like to use?");
+            Console.WriteLine("\n1 - Scrabble: The traditional scoring algorithm.");
+            Console.WriteLine("2 - Simple Score: Each letter is worth 1 point.");
+            Console.WriteLine("3 - Bonus Vowels: Vowels are worth 3 pts, and consonants are 1 pt.");
+            Console.WriteLine("\nEnter 1, 2, or 3:");
+            string inputString = Console.ReadLine();
+            int inputInt;
+            while (!int.TryParse(inputString, out inputInt))
+            {
+                Console.WriteLine("\nEnter 1, 2, or 3:");
+                inputString = Console.ReadLine();
+            }
+            inputInt = int.Parse(inputString);
+            return inputInt;
+        }
 
 
 
